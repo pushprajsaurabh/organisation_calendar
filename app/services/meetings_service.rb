@@ -37,7 +37,7 @@ class MeetingsService
   end
 
   def time_slot_meetings
-    @time_slot_meetings ||= Meeting.where('start_time <= ? and end_time >= ?', params[:start_time], params[:end_time])
+    @time_slot_meetings ||= Meeting.where('start_time >= ? and end_time <= ?', Time.zone.parse(params[:start_time]), Time.zone.parse(params[:end_time]))
   end
 
   def free_meeting_room

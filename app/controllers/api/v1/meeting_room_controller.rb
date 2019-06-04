@@ -3,7 +3,7 @@ module Api::V1
 
    def list_rooms_status
       check_list_rooms_params
-      result = MeetingRoomService.new(params).create_meeting
+      result = MeetingRoomService.new(params).list_rooms_status
       render json: {
         payload: result[:payload],
         meta: result[:meta]

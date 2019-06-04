@@ -1,11 +1,11 @@
-class MeetingsService
+class MeetingRoomService
 
   def initialize(params)
     @params =  params
   end
 
   def list_rooms_status
-    rooms_status = MeetingRoom.map do |room|
+    rooms_status = MeetingRoom.all.map do |room|
       {
         name: room.name,
         information: room.information,
@@ -32,7 +32,7 @@ class MeetingsService
   end
 
   def time_slot_meetings
-    @time_slot_meetings ||= Meeting.where('start_time <= ? and end_time >= ?', params[:start_time], params[:end_time])
+    @time_slot_meetings ||= Meeting.where('start_time >= ? and end_time <= ?', Time.zone.parse(params[:start_time]), Time.zone.parse(params[:end_time]))
   end
 
   def occupied_rooms
