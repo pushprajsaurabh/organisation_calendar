@@ -3,15 +3,22 @@
 Steps to run the application:
 
 1. Install ruby 2.2.0 using RVM
+
 2. Install rails 4.2.2
+
 3. Install PostgreSql
+
 4. Run:
       bundle install
+
 5. Open psql console and run the following command:
-  CREATE ROLE admin_traveloka with PASSWORD '123456' SUPERUSER CREATEDB LOGIN;
+      CREATE ROLE admin_traveloka with PASSWORD '123456' SUPERUSER CREATEDB LOGIN;
+
 6. Run: 
       RAILS_ENV=development rake db:create
+
 7. Run:
       RAILS_ENV=development rake db:migrate
+
 8. Start the rails server: 
       rails s
