@@ -13,8 +13,8 @@ module Api::V1
     private
 
     def check_list_rooms_params
-      param! :start_time, Datetime, required: true, blank: false
-      param! :end_time, Datetime, required: true, blank: false
+      param! :start_time, String, required: true, blank: false
+      param! :end_time, String, required: true, blank: false
     end
 
   end

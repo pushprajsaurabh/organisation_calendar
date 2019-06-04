@@ -10,11 +10,11 @@ class MeetingsService
       description: params[:description],
       start_time: Time.zone.parse(params[:start_time]),
       end_time: Time.zone.parse(params[:end_time]),
-      duration_minutes: (Time.zone.parse(params[:end_time] - Time.zone.parse(params[:start_time]).to_i / 60,
-      host_id: params[:host_id]
-      meeting_room_id: free_meeting_room.first.id
+      duration_minutes: (Time.zone.parse(params[:end_time]).to_i - Time.zone.parse(params[:start_time]).to_i)/60,
+      host_id: params[:host_id],
+      meeting_room_id: free_meeting_room.id
     }
-    meeting = Meeting.create_update_meeting(meeting_params)
+    meeting = Meeting.create_meeting(meeting_params)
     EmployeeMeeting.add_employee_meeting(meeting.id, params[:host_id])
     return result(meeting.reload, { message: 'Meeting created successfully by the host!' }, :ok)
   end
@@ -37,11 +37,11 @@ class MeetingsService
   end
 
   def time_slot_meetings
-    @time_slot_meeting ||= Meeting.where('start_time <= ? and end_time >= ?', params[:start_time], params[:end_time])
+    @time_slot_meetings ||= Meeting.where('start_time <= ? and end_time >= ?', params[:start_time], params[:end_time])
   end
 
   def free_meeting_room
-    occupied_rooms = time_slot_meeting.pluck(:meeting_room_id)
+    occupied_rooms = time_slot_meetings.pluck(:meeting_room_id)
     @available_room ||= MeetingRoom.where.not(id: occupied_rooms).first
     return @available_room
   end

@@ -12,7 +12,7 @@ module Api::V1
 
     def add_invitee
       check_add_invite_params
-      result = MeetingsService.new(params[:employee_id]).create_meetin(params)
+      result = MeetingsService.new(params).add_invitee_to_meeting
       render json: {
         payload: result[:payload],
         meta: result[:meta]
@@ -24,8 +24,8 @@ module Api::V1
     def check_invite_params
       param! :host_id, Integer, required: true, blank: false
       param! :title, String, required: true, blank: false
-      param! :start_time, Datetime, required: true, blank: false
-      param! :end_time, Datetime, required: true, blank: false
+      param! :start_time, String, required: true, blank: false
+      param! :end_time, String, required: true, blank: false
       param! :description, String, required: false
     end
 

@@ -32,11 +32,11 @@ class MeetingsService
   end
 
   def time_slot_meetings
-    @time_slot_meeting ||= Meeting.where('start_time <= ? and end_time >= ?', params[:start_time], params[:end_time])
+    @time_slot_meetings ||= Meeting.where('start_time <= ? and end_time >= ?', params[:start_time], params[:end_time])
   end
 
   def occupied_rooms
-    @occupied_rooms ||= time_slot_meeting.pluck(:meeting_room_id)
+    @occupied_rooms ||= time_slot_meetings.pluck(:meeting_room_id)
   end
 
   def result(payload, meta, status = :ok)
