@@ -13,4 +13,5 @@ Steps to run the application:
       RAILS_ENV=development rake db:create
 7. Run:
       RAILS_ENV=development rake db:migrate
-8. Start the rails server: rails s
+8. Start the rails server: 
+      rails s
